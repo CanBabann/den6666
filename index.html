@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOVEFLIX - Nehir'e Özel</title>
+    <!-- Modern Typography: Outfit, Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ARKA PLAN MÜZİĞİ İÇİN SES ELEMENTİ -->
+    <audio id="bg-music" loop>
+        <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" type="audio/wav"> <!-- Tudum sesi için yedek -->
+    </audio>
+
+    <!-- 1. PROFİL SEÇİM EKRANI -->
+    <div id="profile-screen" class="profile-screen">
+        <div class="profile-container">
+            <h1 class="profile-title">Kim izliyor?</h1>
+            <div class="profile-grid">
+                <!-- Nehir'in Profili -->
+                <div class="profile-card" id="profile-nehir">
+                    <div class="avatar-wrapper">
+                        <img src="images/5e3e0435-07f9-40fe-a511-4bdb0a7f6dc3.jpg" alt="Nehir Profile" class="avatar-img">
+                    </div>
+                    <span class="profile-name">Nehir</span>
+                </div>
+                <!-- Ortak Profil (Biz) -->
+                <div class="profile-card" id="profile-us">
+                    <div class="avatar-wrapper us-avatar">
+                        <svg viewBox="0 0 100 100" class="avatar-svg">
+                            <rect width="100" height="100" fill="#E50914"/>
+                            <path d="M50 30 C40 15, 15 15, 15 45 C15 70, 50 90, 50 90 C50 90, 85 70, 85 45 C85 15, 60 15, 50 30 Z" fill="#FFFFFF"/>
+                        </svg>
+                    </div>
+                    <span class="profile-name">Anılarımız</span>
+                </div>
+            </div>
+            <button class="manage-profile-btn">Profilleri Yönet</button>
+        </div>
+    </div>
+
+    <!-- HEY SEN, ÇOK GÜZEL OLMAKTAN TUTUKLUSUN! UYARI EKRANI (SPLASH SCREEN) -->
+    <div id="splash-screen" class="splash-screen" style="display: none;">
+        <!-- Sol Üst Logo -->
+        <div class="logo splash-logo">LOVEFLIX</div>
+        
+        <div class="splash-container">
+            <!-- Mozaik Fotoğraf Grid'i -->
+            <div class="mosaic-grid">
+                <div class="mosaic-item item-1">
+                    <img src="images/5e3e0435-07f9-40fe-a511-4bdb0a7f6dc3.jpg" alt="Nehir 1">
+                </div>
+                <div class="mosaic-item item-2">
+                    <img src="images/11f12f68-417b-4c76-b188-3821a5b1358f.jpg" alt="Nehir 2">
+                </div>
+                <div class="mosaic-item item-3">
+                    <img src="images/b540c85f-72c3-4976-934e-bf2f783ed905.jpg" alt="Nehir 3">
+                </div>
+                <div class="mosaic-item item-4">
+                    <img src="images/ef4a71a3-466c-4b8d-b3d2-6484cb3a4e1e.jpg" alt="Nehir 4">
+                </div>
+            </div>
+            
+            <!-- Yazı Alanı -->
+            <div class="splash-message">
+                <h2 class="splash-heading">HEY SEN, ÇOK GÜZEL OLMAKTAN TUTUKLUSUN!</h2>
+                <p class="splash-subheading">Ama bu platform sadece senin için açılıyor.</p>
+            </div>
+            
+            <!-- Giriş Butonu -->
+            <div class="splash-action">
+                <button class="btn btn-enter" id="splash-enter-btn">GİRİŞ YAP</button>
+                <p class="splash-fineprint">*Şüpheli Etkinlikler ve Kimlik Doğrulama Süreci Tamamlandı - Hoş Geldiniz.*</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. ANA UYGULAMA ARAYÜZÜ (BAŞLANGIÇTA GİZLİ) -->
+    <div id="main-app" class="main-app" style="display: none;">
+        <!-- NAVİGASYON BAR -->
+        <header class="nav-bar" id="navbar">
+            <div class="nav-left">
+                <!-- Mobil Geri Git Butonu -->
+                <button class="mobile-back-btn" id="mobile-back-btn" title="Profillere Geri Dön">
+                    <svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/></svg>
+                </button>
+                <!-- LOVEFLIX Netflix Stili Logo -->
+                <div class="logo" id="nav-logo">LOVEFLIX</div>
+                <nav class="nav-links">
+                    <a href="#" class="active" id="nav-home">Ana Sayfa</a>
+                    <a href="#anilar" id="nav-memories">Anılarımız</a>
+                    <a href="#favoriler" id="nav-favorites">Nehir'in Favorileri</a>
+                    <a href="#ozel" id="nav-special">Nehir'e Özel</a>
+                </nav>
+            </div>
+            <div class="nav-right">
+                <div class="search-box">
+                    <svg class="nav-icon search-icon" viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <span class="nav-kids">Çocuklar</span>
+                <div class="notification-bell">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 4.36 6 6.92 6 10v5l-2 2v1h16v-1l-2-2z" fill="currentColor"/>
+                    </svg>
+                    <span class="bell-badge">1</span>
+                </div>
+                <div class="profile-dropdown-trigger" id="profile-trigger">
+                    <img src="images/5e3e0435-07f9-40fe-a511-4bdb0a7f6dc3.jpg" alt="Profile" class="nav-avatar">
+                    <span class="dropdown-caret"></span>
+                    <div class="profile-dropdown" id="profile-dropdown">
+                        <div class="dropdown-item" id="logout-btn">Çıkış Yap</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- KOCAMAN AFİŞ BANNER (HERO BANNER) -->
+        <section class="hero-banner" style="background-image: linear-gradient(to bottom, rgba(20, 20, 20, 0.1) 0%, rgba(20, 20, 20, 0.8) 85%, rgba(20, 20, 20, 1) 100%), url('images/11f07e7e-ae13-4a7c-8389-43f36a5482b5.jpg');">
+            <div class="hero-content">
+                <h1 class="hero-title">NEHİR</h1>
+                <p class="hero-tagline">Senin İçin Yazılmış Bir Hikaye.</p>
+                <p class="hero-description">
+                    Girdiğin her ortama ışık saçan, aklımı başımdan alan o tatlı tebessümün sahibine... Bu platform; seninle içilen kahvelerin, paylaşılan sessizliklerin, atılan kahkahaların ve henüz yazılmamış tüm o heyecan verici yeni sahnelerin küçük bir kutlamasıdır. İyi ki varsın.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-play" id="hero-play-btn">
+                        <svg class="btn-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                        <span>Oynat</span>
+                    </button>
+                    <button class="btn btn-info" id="hero-info-btn">
+                        <svg class="btn-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/></svg>
+                        <span>Daha Fazla Bilgi</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Ses Açma/Kapama Yüzen Buton -->
+            <button class="music-toggle-btn" id="music-toggle" title="Müzik Aç/Kapat">
+                <svg id="music-on-icon" viewBox="0 0 24 24" style="display:none;"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" fill="currentColor"/></svg>
+                <svg id="music-off-icon" viewBox="0 0 24 24"><path d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.73L19.73 21 21 19.73 4.27 3zM14 7h4V3h-6v5.18l2 2z" fill="currentColor"/></svg>
+            </button>
+        </section>
+
+        <!-- KATEGORİ SATIRLARI -->
+        <main class="category-rows">
+            <!-- SATIR 1: NEHİR'İN FAVORİLERİ -->
+            <section class="row" id="favoriler">
+                <h2 class="row-title">Nehir'in Favorileri</h2>
+                <div class="row-container">
+                    <button class="scroll-btn prev-btn" aria-label="Geri">‹</button>
+                    <div class="row-posters" id="row-favorites">
+                        <!-- Poster Kartları JS ile eklenecek -->
+                    </div>
+                    <button class="scroll-btn next-btn" aria-label="İleri">›</button>
+                </div>
+            </section>
+
+            <!-- SATIR 2: BİZİM ANILARIMIZ -->
+            <section class="row" id="anilar">
+                <h2 class="row-title">Bizim Anılarımız</h2>
+                <div class="row-container">
+                    <button class="scroll-btn prev-btn" aria-label="Geri">‹</button>
+                    <div class="row-posters" id="row-memories">
+                        <!-- Poster Kartları JS ile eklenecek -->
+                    </div>
+                    <button class="scroll-btn next-btn" aria-label="İleri">›</button>
+                </div>
+            </section>
+
+            <!-- SATIR 3: NEHİR'E ÖZEL -->
+            <section class="row" id="ozel">
+                <h2 class="row-title">Nehir'e Özel</h2>
+                <div class="row-container">
+                    <button class="scroll-btn prev-btn" aria-label="Geri">‹</button>
+                    <div class="row-posters" id="row-special">
+                        <!-- Poster Kartları JS ile eklenecek -->
+                    </div>
+                    <button class="scroll-btn next-btn" aria-label="İleri">›</button>
+                </div>
+            </section>
+
+            <!-- SATIR 4: NEHİR'İN PLAYLIST'İ -->
+            <section class="row" id="playlist">
+                <h2 class="row-title">Nehir'in Playlist'i 🎵</h2>
+                <div class="row-container">
+                    <button class="scroll-btn prev-btn" aria-label="Geri">‹</button>
+                    <div class="row-posters" id="row-playlist">
+                        <!-- Şarkı Kartları JS ile eklenecek -->
+                    </div>
+                    <button class="scroll-btn next-btn" aria-label="İleri">›</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- SAYFA ALTI BİLGİSİ (FOOTER) -->
+        <footer class="app-footer">
+            <p>LOVEFLIX &copy; 2026 - Nehir & Can Anılarıyla Hazırlanmıştır ✨</p>
+            <p class="footer-subtext">Her hak saklıdır. Gülümseyerek izlenmesi tavsiye edilir.</p>
+        </footer>
+    </div>
+
+    <!-- 3. NETFLIX TARZI DETAY MODALI (POPUP) -->
+    <div id="details-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="close-modal">&times;</button>
+            <div class="modal-banner" id="modal-banner-img">
+                <div class="modal-banner-overlay">
+                    <h2 class="modal-movie-title" id="modal-title">Film Başlığı</h2>
+                    <div class="modal-banner-buttons">
+                        <button class="btn btn-play" id="modal-play-btn">
+                            <svg class="btn-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                            <span>Oynat</span>
+                        </button>
+                        <button class="modal-round-btn" id="modal-like-btn" title="Favorilere Ekle">
+                            <svg viewBox="0 0 24 24" class="heart-icon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                <div class="modal-body-left">
+                    <div class="modal-metadata">
+                        <span class="match-score" id="modal-match">%99 Eşleşme</span>
+                        <span class="meta-year" id="modal-year">2026</span>
+                        <span class="meta-age">Uyum+</span>
+                        <span class="meta-duration" id="modal-duration">2s 15dk</span>
+                        <span class="hd-badge">HD</span>
+                    </div>
+                    <p class="modal-story" id="modal-description">
+                        Buraya bu özel anıya ait hikaye gelecek.
+                    </p>
+                    
+                    <!-- Nehir'in Yorum/Not Bırakma Paneli -->
+                    <div class="modal-comment-section">
+                        <h4 class="comment-title">Nehir'in Bu Anıya Notu 📝</h4>
+                        <div class="comment-input-wrapper">
+                            <textarea id="comment-textarea" placeholder="Bu anı hakkında ne düşünüyorsun? Buraya kendi notunu ekleyebilirsin..."></textarea>
+                            <button id="save-comment-btn" class="btn btn-save-comment">Notu Kaydet</button>
+                        </div>
+                        <p id="comment-saved-message" class="comment-status-msg" style="display: none;">Not başarıyla kaydedildi! ✨</p>
+                    </div>
+                </div>
+                <div class="modal-body-right">
+                    <div class="modal-info-list">
+                        <div><span class="info-label">Oyuncular:</span> <span id="modal-cast">Nehir, Can</span></div>
+                        <div><span class="info-label">Tür:</span> <span id="modal-genre">Romantik, Macera, Mutluluk</span></div>
+                        <div><span class="info-label">Bu anı:</span> <span id="modal-tags">Unutulmaz, Heyecanlı, Sevgi Dolu</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. TAM EKRAN MEKTUP VE FOTOĞRAF OYNATICISI -->
+    <div id="video-player" class="video-player-container" style="display: none;">
+        <button class="close-player-btn" id="close-player" title="Kapat">&times;</button>
+        <div class="player-content">
+            <!-- Mektup Slaytı Bölümü -->
+            <div class="player-slide" id="player-slide">
+                <div class="slide-backdrop" id="slide-backdrop"></div>
+                <div class="slide-text-container">
+                    <h2 class="slide-title" id="slide-title">Başlık</h2>
+                    <p class="slide-body" id="slide-body">Mektup satırları buraya gelecek...</p>
+                </div>
+            </div>
+            <!-- Oynatıcı Kontrolleri -->
+            <div class="player-controls">
+                <button class="player-ctrl-btn" id="player-prev" title="Geri">
+                    <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/></svg>
+                </button>
+                <button class="player-ctrl-btn" id="player-play-pause" title="Oynat/Duraklat">
+                    <svg id="player-pause-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/></svg>
+                    <svg id="player-play-icon" viewBox="0 0 24 24" style="display:none;"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                </button>
+                <button class="player-ctrl-btn" id="player-next" title="İleri">
+                    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/></svg>
+                </button>
+                <div class="player-progress-bar">
+                    <div class="player-progress-filled" id="player-progress"></div>
+                </div>
+                <span class="player-timer" id="player-timer">1 / 5</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DOSYASI -->
+    <script src="app.js"></script>
+</body>
+</html>

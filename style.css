@@ -1,0 +1,1453 @@
+/* -------------------------------------------------------------
+   LOVEFLIX PREMIUM DESIGN SYSTEM
+   Theme: Netflix Dark Mode & Emotional Love Accents
+   ------------------------------------------------------------- */
+
+/* RESET & VARIABLES */
+:root {
+    --bg-color: #141414;
+    --bg-darker: #0c0c0c;
+    --primary-red: #E50914;
+    --primary-red-hover: #b20710;
+    --text-color: #FFFFFF;
+    --text-muted: #A3A3A3;
+    --card-bg: #181818;
+    --modal-bg: #181818;
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --font-outfit: 'Outfit', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-inter);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .logo, .btn, .profile-name {
+    font-family: var(--font-outfit);
+}
+
+/* CUSTOM SCROLLBAR FOR WHOLE APP */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 1. PROFİL SEÇİM EKRANI STİLLERİ */
+.profile-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-darker);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.profile-container {
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.profile-title {
+    font-size: 3.5rem;
+    font-weight: 600;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    animation: fadeInDown 0.8s ease;
+}
+
+.profile-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 3px solid transparent;
+    transition: var(--transition-fast);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.us-avatar {
+    background-color: var(--primary-red);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-svg {
+    width: 70%;
+    height: 70%;
+    transition: transform 0.5s ease;
+}
+
+.profile-name {
+    margin-top: 15px;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+}
+
+/* Profile Hover Effects */
+.profile-card:hover {
+    transform: translateY(-5px);
+}
+
+.profile-card:hover .avatar-wrapper {
+    border-color: var(--text-color);
+}
+
+.profile-card:hover .avatar-img,
+.profile-card:hover .avatar-svg {
+    transform: scale(1.08);
+}
+
+.profile-card:hover .profile-name {
+    color: var(--text-color);
+}
+
+/* Nehir's Profile Special Glow */
+#profile-nehir:hover .avatar-wrapper {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 25px rgba(229, 9, 20, 0.6);
+}
+
+#profile-nehir:hover .profile-name {
+    color: var(--primary-red);
+    text-shadow: 0 0 5px rgba(229, 9, 20, 0.4);
+}
+
+.manage-profile-btn {
+    background: transparent;
+    border: 1px solid var(--text-muted);
+    color: var(--text-muted);
+    padding: 10px 24px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.manage-profile-btn:hover {
+    border-color: var(--text-color);
+    color: var(--text-color);
+}
+
+/* 2. NAVİGASYON BAR */
+.nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 4%;
+    z-index: 100;
+    transition: background-color 0.5s ease;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+}
+
+.nav-bar.scrolled {
+    background-color: var(--bg-color);
+    background-image: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+/* LOVEFLIX LOGO (Netflix arched red bold typography) */
+.logo {
+    color: var(--primary-red);
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    user-select: none;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.03);
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #e5e5e5;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--text-color);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.nav-icon:hover {
+    transform: scale(1.1);
+}
+
+.nav-kids {
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.notification-bell {
+    position: relative;
+}
+
+.bell-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--primary-red);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 1px 5px;
+    border-radius: 50%;
+}
+
+.profile-dropdown-trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.dropdown-caret {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--text-color);
+    transition: transform 0.3s;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 1px solid #333;
+    padding: 10px 0;
+    width: 140px;
+    display: none;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.profile-dropdown-trigger:hover .profile-dropdown {
+    display: block;
+}
+
+.profile-dropdown-trigger:hover .dropdown-caret {
+    transform: rotate(180deg);
+}
+
+.dropdown-item {
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--primary-red);
+}
+
+/* 3. HERO BANNER */
+.hero-banner {
+    position: relative;
+    height: 85vh;
+    background-size: cover;
+    background-position: center 30%;
+    display: flex;
+    align-items: center;
+    padding: 0 4%;
+    margin-bottom: 20px;
+}
+
+.hero-content {
+    max-width: 650px;
+    z-index: 10;
+    animation: fadeInUp 1s ease;
+}
+
+.hero-title {
+    font-size: 5.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    color: var(--text-color);
+}
+
+.hero-tagline {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-red);
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #e5e5e5;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    border: none;
+}
+
+.btn-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-play {
+    background-color: var(--text-color);
+    color: black;
+}
+
+.btn-play:hover {
+    background-color: rgba(255, 255, 255, 0.75);
+    transform: scale(1.03);
+}
+
+.btn-info {
+    background-color: rgba(109, 109, 110, 0.7);
+    color: var(--text-color);
+}
+
+.btn-info:hover {
+    background-color: rgba(109, 109, 110, 0.4);
+    transform: scale(1.03);
+}
+
+/* FLOAT MUSIC TOGGLE BUTTON */
+.music-toggle-btn {
+    position: absolute;
+    bottom: 25px;
+    right: 4%;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: var(--transition-fast);
+}
+
+.music-toggle-btn:hover {
+    background-color: var(--primary-red);
+    border-color: var(--primary-red);
+    transform: scale(1.1);
+}
+
+.music-toggle-btn svg {
+    width: 22px;
+    height: 22px;
+    color: white;
+}
+
+/* 4. KATEGORİ SATIRLARI (CAROUSEL) */
+.category-rows {
+    padding: 0 4% 50px 4%;
+    position: relative;
+    z-index: 20;
+    margin-top: -30px; /* Overlap into the banner vignette */
+}
+
+.row {
+    margin-bottom: 35px;
+}
+
+.row-title {
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: #e5e5e5;
+    margin-bottom: 12px;
+    transition: color 0.3s;
+}
+
+.row:hover .row-title {
+    color: var(--text-color);
+}
+
+.row-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* SLIDE BUTTONS */
+.scroll-btn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 45px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s, background-color 0.3s;
+    border-radius: 4px;
+}
+
+.prev-btn {
+    left: -40px;
+}
+
+.next-btn {
+    right: -40px;
+}
+
+.row-container:hover .scroll-btn {
+    opacity: 1;
+}
+
+.scroll-btn:hover {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: var(--primary-red);
+}
+
+/* ROW POSTERS GRID */
+.row-posters {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 15px 0;
+    scroll-behavior: smooth;
+    width: 100%;
+}
+
+.row-posters::-webkit-scrollbar {
+    display: none; /* Hide scrollbar but keep scroll functionality */
+}
+
+/* POSTER CARD STYLING */
+.poster-card {
+    position: relative;
+    flex: 0 0 calc(20% - 8px); /* 5 cards visible on screen by default */
+    min-width: 200px;
+    aspect-ratio: 16/9; /* Landscape horizontal video cards */
+    border-radius: 4px;
+    overflow: visible; /* Crucial to show details popup on hover */
+    cursor: pointer;
+    background-color: var(--card-bg);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    transition: transform 0.4s ease;
+}
+
+/* CARD DETAILS UNDERLAY (Reveals on Hover) */
+.card-details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(20,20,20,0.95) 70%, rgba(20,20,20,0));
+    padding: 10px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none; /* Only card triggers interaction */
+}
+
+.card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--text-color);
+    margin-bottom: 6px;
+    line-height: 1.25;
+    font-weight: 400;
+    opacity: 0.9;
+    letter-spacing: 0.2px;
+}
+
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+}
+
+.card-match {
+    color: #46d369;
+    font-weight: bold;
+}
+
+.card-year {
+    color: var(--text-muted);
+}
+
+.card-badge {
+    border: 1px solid var(--text-muted);
+    padding: 0 3px;
+    font-size: 0.65rem;
+    color: var(--text-color);
+}
+
+/* HOVER ANIMATION FOR CARDS */
+.poster-card:hover {
+    transform: scale(1.15) translateY(-10px);
+    z-index: 50;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8), 0 0 10px rgba(229, 9, 20, 0.2);
+}
+
+.poster-card:hover .card-details {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive rows: Adjust number of items based on screen size */
+@media (max-width: 1100px) {
+    .poster-card {
+        flex: 0 0 calc(25% - 8px); /* 4 cards */
+    }
+}
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    .hero-tagline {
+        font-size: 1.3rem;
+    }
+    .poster-card {
+        flex: 0 0 calc(33.33% - 8px); /* 3 cards */
+    }
+    .nav-links {
+        display: none; /* Hide top links on mobile, we can use simple layout */
+    }
+}
+@media (max-width: 480px) {
+    .poster-card {
+        flex: 0 0 calc(50% - 8px); /* 2 cards */
+    }
+    .hero-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* 5. NETFLIX TARZI BİLGİ MODALI (POPUP) */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 500;
+    display: none; /* JS toggles flex/block */
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: 40px 10px;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: var(--modal-bg);
+    width: 100%;
+    max-width: 850px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    transform: translateY(-20px);
+    transition: transform 0.4s ease;
+    animation: slideUp 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(20, 20, 20, 0.8);
+    border: none;
+    color: white;
+    font-size: 2.2rem;
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.close-modal-btn:hover {
+    transform: scale(1.1);
+    background-color: rgba(229, 9, 20, 0.8);
+}
+
+/* Modal Banner Header */
+.modal-banner {
+    position: relative;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+}
+
+.modal-banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, var(--modal-bg) 5%, rgba(24, 24, 24, 0.2) 60%, rgba(24, 24, 24, 0) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+}
+
+.modal-movie-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+}
+
+.modal-banner-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.modal-round-btn {
+    background-color: rgba(30, 30, 30, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.modal-round-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: scale(1.1);
+}
+
+.modal-round-btn svg {
+    width: 20px;
+    height: 20px;
+    color: white;
+    transition: fill 0.3s;
+}
+
+.modal-round-btn.active svg {
+    fill: var(--primary-red);
+    color: var(--primary-red);
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 30px 40px 45px 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 50px;
+}
+
+.modal-metadata {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.match-score {
+    color: #46d369;
+    font-weight: 700;
+}
+
+.meta-year, .meta-age, .meta-duration {
+    color: var(--text-color);
+}
+
+.hd-badge {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    padding: 0 4px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+.modal-story {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #d2d2d2;
+}
+
+/* Modal Sidebar */
+.modal-body-right {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.info-label {
+    color: var(--text-muted);
+}
+
+/* Modal Mobile Adjustment */
+@media (max-width: 768px) {
+    .modal-body {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 20px;
+    }
+    .modal-movie-title {
+        font-size: 2.2rem;
+    }
+    .modal-banner {
+        height: 250px;
+    }
+}
+
+/* 6. TAM EKRAN MEKTUP OYNATICISI STİLLERİ */
+.video-player-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #050505;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.4s ease;
+}
+
+.close-player-btn {
+    position: absolute;
+    top: 25px;
+    right: 4%;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 3.5rem;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    line-height: 1;
+    z-index: 2100;
+}
+
+.close-player-btn:hover {
+    color: var(--text-color);
+    transform: scale(1.1);
+}
+
+.player-content {
+    width: 90%;
+    max-width: 1000px;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.player-slide {
+    flex-grow: 1;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px) brightness(0.4);
+    transform: scale(1.05);
+    transition: background-image 0.8s ease, filter 1.5s ease, transform 1.5s ease;
+}
+
+.slide-text-container {
+    position: relative;
+    z-index: 10;
+    padding: 40px;
+    max-width: 800px;
+    text-align: center;
+    animation: slideTextFadeIn 0.8s ease;
+}
+
+.slide-title {
+    font-size: 2.8rem;
+    color: var(--primary-red);
+    font-weight: 800;
+    margin-bottom: 25px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.slide-body {
+    font-size: 1.45rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+    font-weight: 300;
+}
+
+/* Player Navigation Controls */
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-top: 25px;
+    flex-wrap: wrap;
+}
+
+.player-ctrl-btn {
+    background-color: rgba(30,30,30,0.8);
+    border: 1px solid #444;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: var(--transition-fast);
+}
+
+.player-ctrl-btn:hover {
+    background-color: var(--primary-red);
+    border-color: var(--primary-red);
+    transform: scale(1.1);
+}
+
+.player-ctrl-btn svg {
+    width: 25px;
+    height: 25px;
+}
+
+.player-progress-bar {
+    flex-grow: 1;
+    height: 6px;
+    background-color: #333;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.player-progress-filled {
+    height: 100%;
+    background-color: var(--primary-red);
+    width: 0%;
+    transition: width 0.3s linear;
+}
+
+.player-timer {
+    font-size: 1.1rem;
+    font-family: var(--font-outfit);
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* Footer Section Styling */
+.app-footer {
+    border-top: 1px solid #222;
+    padding: 30px 0;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.app-footer p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.footer-subtext {
+    font-size: 0.75rem !important;
+    opacity: 0.6;
+}
+
+/* 7. ANIMATIONS */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideTextFadeIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* -------------------------------------------------------------
+   8. UYARI EKRANI (SPLASH SCREEN) STİLLERİ
+   ------------------------------------------------------------- */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-darker);
+    z-index: 1500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    padding: 60px 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+.splash-logo {
+    position: absolute;
+    top: 25px;
+    left: 4%;
+}
+
+.splash-container {
+    max-width: 800px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Mozaik Fotoğraf Kümesi */
+.mosaic-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 160px);
+    grid-template-rows: repeat(2, 160px);
+    gap: 15px;
+    transform: rotate(-3deg);
+    margin-bottom: 10px;
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.7));
+}
+
+.mosaic-item {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s;
+    background-color: #1a1a1a;
+    aspect-ratio: 1/1;
+}
+
+.mosaic-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Her öğeyi küme gibi gösterecek küçük dönüşler */
+.mosaic-grid .item-1 { transform: rotate(-2deg) translate(-5px, -5px); }
+.mosaic-grid .item-2 { transform: rotate(3deg) translate(5px, -5px); }
+.mosaic-grid .item-3 { transform: rotate(1deg) translate(-5px, 5px); }
+.mosaic-grid .item-4 { transform: rotate(-4deg) translate(5px, 5px); }
+
+.mosaic-item:hover {
+    transform: scale(1.12) rotate(0deg) !important;
+    border-color: var(--primary-red);
+    z-index: 10;
+    box-shadow: 0 10px 20px rgba(229, 9, 20, 0.3);
+}
+
+/* Uyarı Mesajı */
+.splash-message {
+    margin-top: 10px;
+}
+
+.splash-heading {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--text-color);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    font-family: var(--font-outfit);
+}
+
+.splash-subheading {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Kırmızı Parlayan Buton */
+.btn-enter {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--primary-red);
+    padding: 14px 45px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.3);
+    transition: background-color 0.25s, box-shadow 0.25s, transform 0.2s;
+    font-family: var(--font-outfit);
+}
+
+.btn-enter:hover {
+    background-color: var(--primary-red);
+    box-shadow: 0 0 25px rgba(229, 9, 20, 0.8), 0 0 10px rgba(229, 9, 20, 0.4);
+    transform: scale(1.05);
+}
+
+.splash-fineprint {
+    margin-top: 20px;
+    font-size: 0.82rem;
+    color: #555;
+    font-style: italic;
+    letter-spacing: 0.3px;
+}
+
+/* Mobil Uyum */
+@media (max-width: 480px) {
+    .mosaic-grid {
+        grid-template-columns: repeat(2, 110px);
+        grid-template-rows: repeat(2, 110px);
+        gap: 10px;
+    }
+    .splash-heading {
+        font-size: 1.4rem;
+        line-height: 1.3;
+    }
+    .splash-subheading {
+        font-size: 0.95rem;
+    }
+    .btn-enter {
+        padding: 12px 35px;
+        font-size: 1rem;
+    }
+}
+
+/* -------------------------------------------------------------
+   9. ANILARA NOT BIRAKMA PANELI STİLLERİ
+   ------------------------------------------------------------- */
+.modal-comment-section {
+    margin-top: 35px;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+}
+
+.comment-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 12px;
+    font-family: var(--font-outfit);
+}
+
+.comment-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+#comment-textarea {
+    width: 100%;
+    height: 80px;
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 10px;
+    color: white;
+    font-family: var(--font-inter);
+    font-size: 0.92rem;
+    resize: none;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+#comment-textarea:focus {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.2);
+}
+
+.btn-save-comment {
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btn-save-comment:hover {
+    background-color: #b80710;
+    transform: translateY(-1px);
+}
+
+.comment-status-msg {
+    margin-top: 8px;
+    font-size: 0.82rem;
+    color: #46d369;
+    text-align: left;
+    animation: fadeIn 0.3s ease;
+}
+
+/* -------------------------------------------------------------
+   10. PLAK DÖNME EFEKTİ (VINYL RECORD) STİLLERİ
+   ------------------------------------------------------------- */
+.playlist-card {
+    position: relative;
+}
+
+.playlist-img-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.playlist-card .poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.4s ease, opacity 0.4s ease;
+}
+
+/* Hover durumunda arka plan resmi biraz flu ve karanlık olsun ki plak ortaya çıksın */
+.playlist-card:hover .poster-img {
+    filter: blur(2px) brightness(0.4);
+}
+
+.vinyl-record {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    margin-top: -40px;
+    margin-left: -40px;
+    background: radial-gradient(circle, #0c0c0c 30%, #222 31%, #000 38%, #222 45%, #111 50%, #222 55%, #050505 70%);
+    border-radius: 50%;
+    border: 1px solid #111;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.8), inset 0 0 8px rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 5;
+    animation: spinVinyl 8s linear infinite;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s;
+    opacity: 0.85;
+}
+
+/* Plak Göbeği (Albüm Resmi) */
+.vinyl-label {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #000;
+    z-index: 6;
+}
+
+/* Plak Orta İğne Deliği */
+.vinyl-record::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: var(--bg-darker);
+    border-radius: 50%;
+    border: 1px solid #444;
+    z-index: 7;
+}
+
+@keyframes spinVinyl {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Kartın üzerine gelince plak parlar, büyür ve hızlanır */
+.playlist-card:hover .vinyl-record {
+    transform: scale(1.18);
+    animation-duration: 3s; /* 3 saniyede tam tur (daha hızlı dönme) */
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.6), 0 5px 15px rgba(0,0,0,0.8);
+}
+
+/* -------------------------------------------------------------
+   11. GELİŞMİŞ MOBİL UYUMLULUK (RESPONSIVE) EKLEMELERİ
+   ------------------------------------------------------------- */
+
+/* Profillerin Mobilde Dikey Hizalanması */
+@media (max-width: 480px) {
+    .profile-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    .profile-card {
+        transform: scale(1.1);
+    }
+}
+
+/* Slayt Oynatıcının (Slideshow) Telefon Ekranlarında Taşmasını Engelleme */
+@media (max-width: 768px) {
+    .player-content {
+        width: 95%;
+        height: 85%;
+    }
+    .slide-text-container {
+        padding: 20px 15px;
+    }
+    .slide-title {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+    .slide-body {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        font-weight: 400;
+    }
+    .close-player-btn {
+        top: 15px;
+        right: 15px;
+        font-size: 2.6rem;
+    }
+    .player-timer {
+        font-size: 0.9rem;
+    }
+    .player-ctrl-btn {
+        width: 42px;
+        height: 42px;
+    }
+    .player-ctrl-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+    .player-controls {
+        padding-top: 15px;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+/* Telefonlarda Yorum Yazma Alanı Butonunun Tam Genişlik Olması */
+@media (max-width: 480px) {
+    .comment-input-wrapper {
+        align-items: stretch;
+    }
+    .btn-save-comment {
+        padding: 10px;
+        text-align: center;
+    }
+    .comment-title {
+        font-size: 1rem;
+    }
+}
+
+/* Mobil Geri Dön Butonu Stili */
+.mobile-back-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-right: 15px;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.mobile-back-btn:hover {
+    color: var(--primary-red);
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .mobile-back-btn {
+        display: flex;
+    }
+}
