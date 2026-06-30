@@ -798,6 +798,51 @@ function handleNavbarScroll() {
     }
 }
 
+function closeMobileMenu() {
+    document.body.classList.remove('mobile-menu-open');
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    const backdrop = document.getElementById('mobile-nav-backdrop');
+    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+    if (backdrop) backdrop.setAttribute('aria-hidden', 'true');
+}
+
+function initMobileNav() {
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    const backdrop = document.getElementById('mobile-nav-backdrop');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (!menuToggle) return;
+
+    menuToggle.addEventListener('click', () => {
+        const isOpen = document.body.classList.toggle('mobile-menu-open');
+        menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        menuToggle.setAttribute('aria-label', isOpen ? 'Menüyü kapat' : 'Menüyü aç');
+        if (backdrop) backdrop.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    });
+
+    if (backdrop) {
+        backdrop.addEventListener('click', closeMobileMenu);
+    }
+
+    navLinks?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && document.body.classList.contains('mobile-menu-open')) {
+            closeMobileMenu();
+            menuToggle.setAttribute('aria-label', 'Menüyü aç');
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && document.body.classList.contains('mobile-menu-open')) {
+            closeMobileMenu();
+            menuToggle.setAttribute('aria-label', 'Menüyü aç');
+        }
+    });
+}
+
 // BİLEŞENLERİN BAĞLANMASI VE İLK ÇALIŞMA
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Dinamik posterleri satırlara yükle
@@ -1303,6 +1348,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeEnvelopeOverlay) closeEnvelopeOverlay.addEventListener('click', hideEnvelope);
     
     // 9. Navbar scroll dinleyici
+    initMobileNav();
     window.addEventListener('scroll', handleNavbarScroll);
     
     // Mutfak Arayüzü dinleyicilerini kur

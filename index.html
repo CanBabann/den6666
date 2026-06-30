@@ -91,7 +91,7 @@
                 </button>
                 <!-- LOVEFLIX Netflix Stili Logo -->
                 <div class="logo" id="nav-logo">LOVEFLIX</div>
-                <nav class="nav-links">
+                <nav class="nav-links" id="mobile-nav">
                     <a href="#" class="active" id="nav-home">Ana Sayfa</a>
                     <a href="#anilar" id="nav-memories">Anılarımız</a>
                     <a href="#favoriler" id="nav-favorites">Nehir'in Favorileri</a>
@@ -103,6 +103,11 @@
                 </nav>
             </div>
             <div class="nav-right">
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-nav">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <div class="search-box">
                     <svg class="nav-icon search-icon" viewBox="0 0 24 24">
                         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/>
@@ -124,6 +129,7 @@
                 </div>
             </div>
         </header>
+        <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" aria-hidden="true"></div>
 
         <!-- KOCAMAN AFİŞ BANNER (HERO BANNER) -->
         <section class="hero-banner" style="background-image: linear-gradient(to bottom, rgba(20, 20, 20, 0.1) 0%, rgba(20, 20, 20, 0.8) 85%, rgba(20, 20, 20, 1) 100%), url('images/11f07e7e-ae13-4a7c-8389-43f36a5482b5.jpg');">
