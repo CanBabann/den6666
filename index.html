@@ -96,6 +96,10 @@
                     <a href="#anilar" id="nav-memories">Anılarımız</a>
                     <a href="#favoriler" id="nav-favorites">Nehir'in Favorileri</a>
                     <a href="#ozel" id="nav-special">Nehir'e Özel</a>
+                    <a href="#" id="nav-kitchen" class="kitchen-link">Mutfak 🍳</a>
+                    <a href="#" id="nav-lanterns" class="lanterns-link">Dilek Feneri 🏮</a>
+                    <a href="#" id="nav-star" class="star-link">Yıldızımız ⭐️</a>
+                    <a href="#" id="nav-letter" class="letter-link">Mektup ✉️</a>
                 </nav>
             </div>
             <div class="nav-right">
@@ -138,6 +142,32 @@
                         <svg class="btn-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/></svg>
                         <span>Daha Fazla Bilgi</span>
                     </button>
+                </div>
+                
+                <!-- DOĞUM GÜNÜ GERİ SAYIM SAYACI -->
+                <div class="birthday-countdown-container">
+                    <div class="countdown-quote">“Dünyanın en güzel tebessümünün yeni yaşına, yeni hayallerine doğru...”</div>
+                    <div class="countdown-timer" id="birthday-countdown">
+                        <div class="time-block">
+                            <span class="time-val" id="cd-days">00</span>
+                            <span class="time-label">GÜN</span>
+                        </div>
+                        <div class="time-separator">:</div>
+                        <div class="time-block">
+                            <span class="time-val" id="cd-hours">00</span>
+                            <span class="time-label">SAAT</span>
+                        </div>
+                        <div class="time-separator">:</div>
+                        <div class="time-block">
+                            <span class="time-val" id="cd-minutes">00</span>
+                            <span class="time-label">DK</span>
+                        </div>
+                        <div class="time-separator">:</div>
+                        <div class="time-block">
+                            <span class="time-val" id="cd-seconds">00</span>
+                            <span class="time-label">SN</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Ses Açma/Kapama Yüzen Buton -->
@@ -192,6 +222,18 @@
                     <button class="scroll-btn prev-btn" aria-label="Geri">‹</button>
                     <div class="row-posters" id="row-playlist">
                         <!-- Şarkı Kartları JS ile eklenecek -->
+                    </div>
+                    <button class="scroll-btn next-btn" aria-label="İleri">›</button>
+                </div>
+            </section>
+
+            <!-- SATIR 5: NEHİR'İN OYUN ODASI -->
+            <section class="row" id="games">
+                <h2 class="row-title">LOVEFLIX GAMES (Nehir'in Oyun Odası) 🎮</h2>
+                <div class="row-container">
+                    <button class="scroll-btn prev-btn" aria-label="Geri">‹</button>
+                    <div class="row-posters" id="row-games">
+                        <!-- Oyun Kartları JS ile eklenecek -->
                     </div>
                     <button class="scroll-btn next-btn" aria-label="İleri">›</button>
                 </div>
@@ -286,6 +328,245 @@
                     <div class="player-progress-filled" id="player-progress"></div>
                 </div>
                 <span class="player-timer" id="player-timer">1 / 5</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. İNTERAKTİF MEKTUP ZARFI MODALI -->
+    <div id="envelope-modal" class="envelope-modal" style="display: none;">
+        <div class="envelope-overlay-close" id="close-envelope-overlay"></div>
+        <div class="envelope-wrapper" id="envelope-wrapper">
+            <button class="envelope-close-btn" id="close-envelope-btn">&times;</button>
+            <div class="envelope" id="envelope">
+                <div class="flap"></div>
+                <div class="pocket"></div>
+                <div class="wax-seal" id="wax-seal">
+                    <span class="heart">❤</span>
+                </div>
+            </div>
+            <!-- Mektup artık zarfın kardeşi (sibling) -->
+            <div class="letter" id="envelope-letter">
+                <div class="letter-inner">
+                    <h3>Sevgili Nehir'e,</h3>
+                    <p>Bu satırları okuyorsan, senin için hazırladığım bu küçük dünyanın en gizli ve en samimi köşesine ulaşmışsın demektir.</p>
+                    <p>Hayatta bazı insanlarla karşılaşmak, yollarda yürürken bir anda karşına çıkan en güzel manzara gibidir. Seninle içtiğimiz o kahveler, oyunlarda tatlı tatlı çekişmelerimiz, paylaştığımız o samimi sessizlikler ve her şeyden önemlisi etrafına saçtığın o eşsiz pozitif enerji... Hepsi benim için çok değerli.</p>
+                    <p>Sen, kendi ayakları üzerinde o kadar güçlü ve inançla duran birisin ki, bu duruşuna ve hayata kattığın o zarafete hayran olmamak elde değil. Bu platform; senin o harika enerjini, gülüşünü ve seninle paylaştığımız tüm o güzel sahneleri kutlamak için ufak bir hediye.</p>
+                    <p>İyi ki varsın, iyi ki hayatımdasın. Birlikte güleceğimiz, yeni kahveler içip yeni oyunlarda yarışacağımız daha nice güzel günlere...</p>
+                    <p class="letter-sig">Sevgilerimle, Can ✨</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. İNTERAKTİF OYUN MODALI -->
+    <div id="game-modal" class="game-modal-container" style="display: none;">
+        <div class="game-modal-content">
+            <button class="game-close-btn" id="close-game-btn">&times;</button>
+            <h2 class="game-modal-title" id="game-title">Oyun Başlığı</h2>
+            <div class="game-layout">
+                <div class="game-area">
+                    <canvas id="game-canvas" width="400" height="400"></canvas>
+                    
+                    <!-- Mobil için Dokunmatik Kontroller -->
+                    <div class="mobile-game-controls">
+                        <div class="ctrl-row">
+                            <button class="game-btn btn-up" id="btn-ctrl-up">▲</button>
+                        </div>
+                        <div class="ctrl-row">
+                            <button class="game-btn btn-left" id="btn-ctrl-left">◀</button>
+                            <button class="game-btn btn-down" id="btn-ctrl-down">▼</button>
+                            <button class="game-btn btn-right" id="btn-ctrl-right">▶</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-sidebar">
+                    <div class="score-card">
+                        <h3>SKOR</h3>
+                        <div class="score-val" id="game-score">0</div>
+                    </div>
+                    <div class="score-card">
+                        <h3>EN YÜKSEK SKOR</h3>
+                        <div class="score-val" id="game-high-score">0</div>
+                    </div>
+                    <div class="game-instructions">
+                        <h4>Nasıl Oynanır?</h4>
+                        <p id="game-instr-text">Klavye yön tuşlarını veya ekrandaki okları kullanın.</p>
+                    </div>
+                    <button class="btn btn-restart" id="btn-game-start">OYUNU BAŞLAT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. LOVEFLIX KITCHEN MODALI (Mutfak Atölyesi) -->
+    <div id="kitchen-modal" class="kitchen-modal-container" style="display: none;">
+        <div class="kitchen-modal-content">
+            <button class="kitchen-close-btn" id="close-kitchen-btn">&times;</button>
+            <h2 class="kitchen-modal-title">LOVEFLIX KITCHEN 🍳🍰</h2>
+            
+            <div class="kitchen-search-bar">
+                <input type="text" id="recipe-search-input" placeholder="Yemek veya tatlı tarifleri ara... 🔍">
+            </div>
+            
+            <div class="kitchen-categories">
+                <button class="kitchen-cat-btn active" data-category="all">Tümü 🍽️</button>
+                <button class="kitchen-cat-btn" data-category="dessert">Tatlılar 🍰</button>
+                <button class="kitchen-cat-btn" data-category="meal">Yemekler 🍝</button>
+                <button class="kitchen-cat-btn" id="btn-add-recipe-view">Yeni Tarif Ekle ➕</button>
+            </div>
+            
+            <div class="kitchen-main-layout">
+                <!-- Sol Taraf: Tarif Kartları Listesi -->
+                <div class="recipes-list-container" id="recipes-list">
+                    <!-- Dinamik olarak yüklenecek -->
+                </div>
+                
+                <!-- Sağ Taraf: Detaylı Görünüm (Tarif, Malzemeler, Video ve Notlar) -->
+                <div class="recipe-detail-container" id="recipe-detail-view" style="display: none;">
+                    <h3 class="detail-recipe-title" id="detail-title">Tarif Adı</h3>
+                    
+                    <div class="recipe-stats">
+                        <span id="detail-prep-time">⏱ Hazırlama: -- dk</span>
+                        <span id="detail-cook-time">🍳 Pişirme: -- dk</span>
+                        <span id="detail-difficulty">🔥 Zorluk: Orta</span>
+                    </div>
+                    
+                    <div class="recipe-grid-columns">
+                        <div class="recipe-ingredients-section">
+                            <h4>Malzemeler (Alışveriş & Hazırlık Listesi) 🛒</h4>
+                            <p class="helper-text">Eldekileri veya hazırladıklarını işaretle:</p>
+                            <div class="ingredients-checkboxes" id="detail-ingredients">
+                                <!-- Checkboxlar JS ile eklenecek -->
+                            </div>
+                        </div>
+                        
+                        <div class="recipe-video-section">
+                            <h4>Nasıl Yapılır Videosu 🎥</h4>
+                            <div class="video-wrapper" id="detail-video-container">
+                                <!-- Iframe Video JS ile eklenecek -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-steps-section">
+                        <h4>Adım Adım Hazırlanışı 📋</h4>
+                        <ol class="recipe-steps-list" id="detail-steps">
+                            <!-- Adımlar JS ile eklenecek -->
+                        </ol>
+                    </div>
+                    
+                    <div class="recipe-notes-section">
+                        <h4>Nehir'in Mutfak Notları 📝</h4>
+                        <textarea id="recipe-personal-note" placeholder="Fırın sıcaklığı, sos detayları veya bu tarif hakkındaki özel notlarını yaz..."></textarea>
+                        <button class="btn btn-save-note" id="btn-save-recipe-note">Notu Kaydet 💾</button>
+                        <span class="note-save-confirm" id="note-saved-indicator">Kaydedildi! ✓</span>
+                    </div>
+                </div>
+                
+                <!-- Yeni Tarif Ekleme Form Görünümü (Gizli) -->
+                <div class="recipe-add-container" id="recipe-add-view" style="display: none;">
+                    <h3>Yeni Özel Tarif Ekle ✍️</h3>
+                    <form id="add-recipe-form">
+                        <div class="form-group">
+                            <label>Tarif Adı *</label>
+                            <input type="text" id="add-title" required placeholder="Örn: Ev Yapımı Sufle">
+                        </div>
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label>Kategori *</label>
+                                <select id="add-category">
+                                    <option value="dessert">Tatlı 🍰</option>
+                                    <option value="meal">Yemek 🍝</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Zorluk</label>
+                                <select id="add-difficulty">
+                                    <option value="Kolay">Kolay 🟢</option>
+                                    <option value="Orta" selected>Orta 🟡</option>
+                                    <option value="Zor">Zor 🔴</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label>Hazırlama Süresi (dk) *</label>
+                                <input type="number" id="add-prep" required placeholder="Örn: 20">
+                            </div>
+                            <div class="form-group">
+                                <label>Pişirme Süresi (dk) *</label>
+                                <input type="number" id="add-cook" required placeholder="Örn: 15">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>YouTube Video Linki veya Video ID'si</label>
+                            <input type="text" id="add-youtube" placeholder="Örn: https://www.youtube.com/watch?v=N1eI4kFq-N4 veya sadece N1eI4kFq-N4">
+                        </div>
+                        <div class="form-group">
+                            <label>Malzemeler (Satır satır yazın) *</label>
+                            <textarea id="add-ingredients" required placeholder="Örn:&#10;3 adet yumurta&#10;1 su bardağı şeker" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Hazırlanış Adımları (Satır satır yazın) *</label>
+                            <textarea id="add-steps" required placeholder="Örn:&#10;Yumurtaları ve şekeri çırpın.&#10;Fırını 180 dereceye ısıtın." rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-submit-recipe">Tarifi Kaydet 💾</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. DİLEK FENERİ GÖLÜ MODALI -->
+    <div id="lanterns-modal" class="lanterns-modal-container" style="display: none;">
+        <div class="lanterns-modal-content">
+            <button class="lanterns-close-btn" id="close-lanterns-btn">&times;</button>
+            <div class="lanterns-header">
+                <h2 class="lanterns-title">DİLEK FENERİ GÖLÜ 🏮🌌</h2>
+                <p class="lanterns-subtitle">Göle dokunarak bir dilek feneri uçur ve Can'ın senin için yazdığı mesajı oku...</p>
+            </div>
+            <div class="canvas-wrapper">
+                <canvas id="lanterns-canvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. GÖKYÜZÜNDEKİ YILDIZIMIZ MODALI -->
+    <div id="star-modal" class="star-modal-container" style="display: none;">
+        <div class="star-modal-content">
+            <button class="star-close-btn" id="close-star-btn">&times;</button>
+            <div class="star-header">
+                <h2 class="star-title">GÖKYÜZÜNDEKİ YILDIZIMIZ ⭐️🌠</h2>
+                <p class="star-subtitle">Gökyüzündeki en parlak yıldıza tescilli ebedi hediyeni keşfetmek için dokun...</p>
+            </div>
+            <div class="star-main-layout">
+                <div class="star-canvas-container">
+                    <canvas id="star-canvas"></canvas>
+                </div>
+                
+                <!-- Gizli Yıldız Sertifikası (Fotoğraf çerçevesi gibi açılacak) -->
+                <div class="star-certificate-container" id="star-cert-view" style="display: none;">
+                    <div class="star-certificate">
+                        <div class="cert-seal">❤</div>
+                        <div class="cert-title">YILDIZ TESCİL SERTİFİKASI</div>
+                        <div class="cert-subtitle">International Star Registry of Loveflix</div>
+                        <div class="cert-divider"></div>
+                        <p class="cert-text">
+                            Bu resmi belge ile, gökyüzünün <strong>Ursa Major (Büyük Ayı) Takımyıldızı</strong> içerisinde, 
+                            <strong>RA 13h 23m 55s, Dec +54° 55' 31"</strong> koordinatlarında yer alan en parlak ve en özel yıldızın 
+                            ebediyen 
+                            <span class="cert-name">"NEHİR"</span> 
+                            adıyla tescil edildiği onaylanmıştır.
+                        </p>
+                        <div class="cert-quote">
+                            "Yeryüzündeki en parlak yıldızın, gökyüzündeki sonsuz ikizine... Gözlerinin o eşsiz ışıltısı her karanlığı aydınlatmaya yetsin diye, adın sonsuza kadar göklerde parlayacak."
+                        </div>
+                        <div class="cert-footer">
+                            <span class="cert-date">Tarih: 30 Haziran 2026</span>
+                            <span class="cert-signature">İmza: Can ✍️</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

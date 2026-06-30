@@ -1451,3 +1451,1265 @@ h1, h2, h3, h4, .logo, .btn, .profile-name {
         display: flex;
     }
 }
+
+/* -------------------------------------------------------------
+   12. İNTERAKTİF MEKTUP ZARFI STİLLERİ
+   ------------------------------------------------------------- */
+.envelope-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.4s ease;
+}
+
+.envelope-overlay-close {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.envelope-wrapper {
+    position: relative;
+    width: 450px;
+    height: 300px;
+    perspective: 1000px;
+    z-index: 5;
+}
+
+.envelope-close-btn {
+    position: absolute;
+    top: -50px;
+    right: -10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+    z-index: 50;
+}
+
+.envelope-close-btn:hover {
+    color: var(--primary-red);
+    transform: scale(1.1);
+}
+
+.envelope {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #9c0c13;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    cursor: pointer;
+    transition: transform 0.4s ease, opacity 0.5s ease;
+    z-index: 3;
+}
+
+.envelope:hover {
+    transform: translateY(-5px);
+}
+
+/* Flap (Kapak) */
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 225px solid transparent;
+    border-right: 225px solid transparent;
+    border-top: 150px solid #b80d17;
+    border-radius: 10px 10px 0 0;
+    transform-origin: top;
+    transition: transform 0.4s ease 0.2s, z-index 0.1s ease 0.2s;
+    z-index: 5;
+}
+
+/* Pocket (Zarfın Gövdesi/Cebi) */
+.pocket {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 225px solid #bd0e19;
+    border-right: 225px solid #bd0e19;
+    border-bottom: 150px solid #a80c14;
+    border-radius: 0 0 10px 10px;
+    z-index: 4;
+}
+
+/* Mühür (Wax Seal) */
+.wax-seal {
+    position: absolute;
+    top: 150px;
+    left: 225px;
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    background-color: #d11922;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 0 10px rgba(0,0,0,0.3);
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, opacity 0.4s ease;
+    border: 2px dashed rgba(255,255,255,0.1);
+}
+
+.wax-seal .heart {
+    color: #ffd700;
+    font-size: 1.8rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Mektup Kağıdı (Letter) - Başlangıçta arkada gizli */
+.letter {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    width: 420px;
+    height: 280px;
+    background-color: #fbf9f4;
+    border-radius: 5px;
+    z-index: 2;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), height 0.6s ease, opacity 0.4s ease;
+    padding: 30px;
+    box-sizing: border-box;
+    opacity: 0;
+}
+
+.letter-inner {
+    color: #2c2c2c;
+    font-family: var(--font-inter);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    overflow-y: auto;
+    height: 100%;
+    padding-right: 5px;
+}
+
+.letter-inner h3 {
+    font-family: var(--font-outfit);
+    font-size: 1.3rem;
+    color: #9c0c13;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.letter-inner p {
+    margin-bottom: 12px;
+}
+
+.letter-sig {
+    text-align: right;
+    font-family: var(--font-outfit);
+    font-weight: 600;
+    margin-top: 25px;
+    color: #9c0c13;
+}
+
+.letter-inner::-webkit-scrollbar {
+    width: 5px;
+}
+
+.letter-inner::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.letter-inner::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+/* AÇILMA SAHNELERİ */
+
+/* Aşama 1: Zarf kapağı açılır */
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope.open .wax-seal {
+    transform: scale(0.5);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Aşama 2: Kağıt yukarı doğru süzülür */
+.envelope-wrapper.slide-letter .letter {
+    transform: translateY(-130px);
+    opacity: 1;
+    z-index: 7;
+}
+
+/* Aşama 3: Zarf kaybolur, kağıt ekranı kaplar ve ortalanır (Tam Optimize!) */
+.envelope-wrapper.active-letter .envelope {
+    opacity: 0;
+    transform: scale(0.8) translateY(100px);
+    pointer-events: none;
+}
+
+.envelope-wrapper.active-letter .letter {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    max-width: 550px;
+    height: 80%;
+    max-height: 600px;
+    transform: translate(-50%, -50%) scale(1) !important;
+    z-index: 2000;
+    opacity: 1;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.85);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Mobil Mektup Ayarı */
+@media (max-width: 480px) {
+    .envelope-wrapper {
+        width: 300px;
+        height: 200px;
+    }
+    .flap {
+        border-left-width: 150px;
+        border-right-width: 150px;
+        border-top-width: 100px;
+    }
+    .pocket {
+        border-left-width: 150px;
+        border-right-width: 150px;
+        border-bottom-width: 100px;
+    }
+    .wax-seal {
+        top: 100px;
+        left: 150px;
+    }
+    .letter {
+        width: 270px;
+        height: 180px;
+        left: 15px;
+    }
+    .envelope-wrapper.slide-letter .letter {
+        transform: translateY(-90px);
+    }
+    .envelope-wrapper.active-letter .letter {
+        width: 92%;
+        height: 85%;
+        max-height: 520px;
+        padding: 20px;
+    }
+    .letter-inner {
+        font-size: 0.88rem;
+    }
+}
+
+/* -------------------------------------------------------------
+   13. NEHİR'İN OYUN ODASI STİLLERİ (SNAKE & BLOCK BLAST)
+   ------------------------------------------------------------- */
+.game-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.94);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.4s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.game-modal-content {
+    background-color: #141414;
+    border: 2px solid #282828;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 760px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.85);
+    animation: slideUp 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.game-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2.2rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s, transform 0.2s;
+    z-index: 50;
+}
+
+.game-close-btn:hover {
+    color: var(--primary-red);
+    transform: scale(1.1);
+}
+
+.game-modal-title {
+    font-size: 2rem;
+    font-family: var(--font-outfit);
+    color: white;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--primary-red);
+    padding-left: 12px;
+}
+
+.game-layout {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 30px;
+}
+
+.game-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#game-canvas {
+    background-color: #080808;
+    border: 3px solid #222;
+    border-radius: 8px;
+    box-shadow: inset 0 0 25px rgba(0,0,0,0.95), 0 0 20px rgba(229, 9, 20, 0.15);
+    cursor: pointer;
+}
+
+.game-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.score-card {
+    background-color: #1c1c1c;
+    border: 1px solid #2d2d2d;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.score-card h3 {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    margin-bottom: 5px;
+}
+
+.score-val {
+    font-size: 2.2rem;
+    font-family: var(--font-outfit);
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 2px 10px rgba(255,255,255,0.1);
+}
+
+.game-instructions {
+    background-color: #0c0c0c;
+    border: 1px solid #1e1e1e;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.game-instructions h4 {
+    font-size: 0.9rem;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.game-instructions p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.btn-restart {
+    background-color: var(--primary-red);
+    color: white;
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.25s, transform 0.25s;
+    border: none;
+    text-align: center;
+}
+
+.btn-restart:hover {
+    background-color: #b80710;
+    transform: translateY(-2px);
+}
+
+/* Mobil Yılan Kontrolleri */
+.mobile-game-controls {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.ctrl-row {
+    display: flex;
+    gap: 8px;
+}
+
+.game-btn {
+    width: 60px;
+    height: 50px;
+    background-color: #2a2a2a;
+    border: 1px solid #3d3d3d;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    user-select: none;
+}
+
+.game-btn:active {
+    background-color: var(--primary-red);
+    border-color: var(--primary-red);
+    transform: scale(0.95);
+}
+
+/* Mobil Oyun Odası Ayarları */
+@media (max-width: 768px) {
+    .game-modal-content {
+        padding: 20px;
+        max-width: 450px;
+    }
+    .game-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    #game-canvas {
+        width: 300px;
+        height: 380px; /* Block Blast için 8x8 + Alttaki parçaların yerleştiği alan */
+    }
+    .game-sidebar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .score-card {
+        flex: 1 1 calc(50% - 5px);
+        padding: 10px;
+    }
+    .score-val {
+        font-size: 1.6rem;
+    }
+    .game-instructions {
+        display: none;
+    }
+    .btn-restart {
+        flex: 1 1 100%;
+        padding: 12px;
+    }
+}
+
+/* -------------------------------------------------------------
+   14. LOVEFLIX KITCHEN (MUTFAK ATÖLYESİ) STİLLERİ
+   ------------------------------------------------------------- */
+.kitchen-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 10, 0.95);
+    z-index: 2500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.4s ease;
+}
+
+.kitchen-modal-content {
+    background-color: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    width: 92%;
+    max-width: 1100px;
+    height: 88%;
+    max-height: 800px;
+    padding: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    overflow: hidden;
+}
+
+.kitchen-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 35px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.kitchen-close-btn:hover {
+    color: #e50914;
+    transform: scale(1.1);
+}
+
+.kitchen-modal-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+    color: #ffea00;
+    text-shadow: 0 0 10px rgba(255, 234, 0, 0.25);
+    margin-bottom: 20px;
+}
+
+/* SEARCH & CATEGORIES */
+.kitchen-search-bar {
+    margin-bottom: 15px;
+}
+
+.kitchen-search-bar input {
+    width: 100%;
+    background-color: #1a1a1a;
+    border: 1px solid #2d2d2d;
+    border-radius: 6px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.kitchen-search-bar input:focus {
+    border-color: #ffea00;
+    box-shadow: 0 0 8px rgba(255, 234, 0, 0.25);
+}
+
+.kitchen-categories {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.kitchen-cat-btn {
+    background-color: #1a1a1a;
+    border: 1px solid #2d2d2d;
+    color: #ccc;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    transition: all 0.2s ease;
+}
+
+.kitchen-cat-btn:hover {
+    background-color: #2a2a2a;
+    color: white;
+}
+
+.kitchen-cat-btn.active {
+    background-color: #ffea00;
+    border-color: #ffea00;
+    color: #141414;
+    font-weight: 600;
+    box-shadow: 0 0 10px rgba(255, 234, 0, 0.3);
+}
+
+#btn-add-recipe-view {
+    margin-left: auto;
+    border-color: #ff0055;
+    color: #ff0055;
+}
+
+#btn-add-recipe-view:hover {
+    background-color: #ff0055;
+    color: white;
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
+}
+
+/* MAIN LAYOUT */
+.kitchen-main-layout {
+    display: grid;
+    grid-template-columns: 310px 1fr;
+    gap: 25px;
+    flex-grow: 1;
+    overflow: hidden;
+    height: calc(100% - 140px);
+}
+
+/* LEFT SIDE: RECIPES LIST */
+.recipes-list-container {
+    background-color: #0b0b0b;
+    border: 1px solid #1c1c1c;
+    border-radius: 8px;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.recipe-card {
+    background-color: #141414;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.recipe-card:hover {
+    transform: translateY(-2px);
+    border-color: #ffea00;
+    box-shadow: 0 5px 15px rgba(255, 234, 0, 0.08);
+}
+
+.recipe-card.selected {
+    border-color: #ffea00;
+    background-color: #1e1e1e;
+    box-shadow: 0 0 8px rgba(255, 234, 0, 0.12);
+}
+
+.recipe-card-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15.5px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.recipe-card-meta {
+    font-size: 11.5px;
+    color: #777;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* RIGHT SIDE: RECIPE DETAILS */
+.recipe-detail-container {
+    background-color: #0b0b0b;
+    border: 1px solid #1c1c1c;
+    border-radius: 8px;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.detail-recipe-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.recipe-stats {
+    display: flex;
+    gap: 12px;
+    font-size: 12.5px;
+    color: #aaa;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #1c1c1c;
+    padding-bottom: 12px;
+}
+
+.recipe-stats span {
+    background-color: #1a1a1a;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid #252525;
+}
+
+.recipe-grid-columns {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.recipe-ingredients-section h4,
+.recipe-video-section h4,
+.recipe-steps-section h4,
+.recipe-notes-section h4 {
+    color: #ffea00;
+    font-family: 'Outfit', sans-serif;
+    font-size: 15.5px;
+    margin-bottom: 12px;
+}
+
+.helper-text {
+    font-size: 11.5px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.ingredients-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ingredient-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #ddd;
+    cursor: pointer;
+    user-select: none;
+}
+
+.ingredient-item input[type="checkbox"] {
+    accent-color: #ffea00;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.ingredient-item.checked {
+    text-decoration: line-through;
+    color: #555 !important;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 ratio */
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    border: 1px solid #222;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.recipe-steps-list {
+    margin-left: 20px;
+    color: #ddd;
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+.recipe-steps-list li {
+    margin-bottom: 10px;
+}
+
+/* PERSONAL NOTES */
+.recipe-notes-section {
+    margin-top: 30px;
+    border-top: 1px solid #1c1c1c;
+    padding-top: 20px;
+}
+
+.recipe-notes-section textarea {
+    width: 100%;
+    height: 80px;
+    background-color: #1a1a1a;
+    border: 1px solid #2d2d2d;
+    border-radius: 6px;
+    padding: 12px;
+    color: white;
+    font-size: 13.5px;
+    outline: none;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.btn-save-note {
+    background-color: #ffea00;
+    color: #141414;
+    font-weight: 600;
+    padding: 8px 18px;
+    font-size: 13px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-save-note:hover {
+    background-color: #ffd200;
+    box-shadow: 0 0 10px rgba(255, 234, 0, 0.25);
+}
+
+.note-save-confirm {
+    margin-left: 15px;
+    color: #00ff66;
+    font-size: 12.5px;
+    display: none;
+}
+
+/* ADD RECIPE FORM */
+.recipe-add-container {
+    background-color: #0b0b0b;
+    border: 1px solid #1c1c1c;
+    border-radius: 8px;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.recipe-add-container h3 {
+    font-family: 'Outfit', sans-serif;
+    color: #ff0055;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12.5px;
+    color: #aaa;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    background-color: #1a1a1a;
+    border: 1px solid #2d2d2d;
+    border-radius: 6px;
+    padding: 10px 15px;
+    color: white;
+    font-size: 13.5px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #ff0055;
+}
+
+.form-group-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.btn-submit-recipe {
+    background-color: #ff0055;
+    color: white;
+    font-weight: 600;
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-submit-recipe:hover {
+    background-color: #e0004c;
+    box-shadow: 0 0 12px rgba(255, 0, 85, 0.3);
+}
+
+/* RESPONSIVE KITCHEN */
+@media (max-width: 768px) {
+    .kitchen-modal-content {
+        padding: 15px;
+        height: 94%;
+        width: 94%;
+    }
+    
+    .kitchen-main-layout {
+        grid-template-columns: 1fr;
+        height: calc(100% - 160px);
+    }
+    
+    .recipes-list-container {
+        max-height: 180px;
+    }
+    
+    .recipe-grid-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -------------------------------------------------------------
+   15. DİLEK FENERİ GÖLÜ & YILDIZIMIZ MODAL STİLLERİ
+   ------------------------------------------------------------- */
+.lanterns-modal-container, .star-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(6, 6, 12, 0.96);
+    z-index: 2500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.4s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.lanterns-modal-content, .star-modal-content {
+    background-color: #08080d;
+    border: 1px solid rgba(255, 234, 0, 0.1);
+    border-radius: 12px;
+    width: 95%;
+    max-width: 1000px;
+    height: 90%;
+    max-height: 800px;
+    padding: 25px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.95);
+    overflow: hidden;
+}
+
+.lanterns-close-btn, .star-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 35px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s, transform 0.2s;
+    z-index: 50;
+}
+
+.lanterns-close-btn:hover, .star-close-btn:hover {
+    color: #ffea00;
+    transform: scale(1.1);
+}
+
+.lanterns-title, .star-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    color: #ffea00;
+    text-shadow: 0 0 12px rgba(255, 234, 0, 0.3);
+    margin-bottom: 5px;
+}
+
+.lanterns-subtitle, .star-subtitle {
+    font-size: 13px;
+    color: #778;
+    margin-bottom: 15px;
+}
+
+/* CANVAS WRAPPER FOR LANTERNS */
+.canvas-wrapper {
+    flex-grow: 1;
+    position: relative;
+    background: linear-gradient(to bottom, #05050f 0%, #0c0a1a 100%);
+    border-radius: 8px;
+    border: 1px solid #151525;
+    overflow: hidden;
+}
+
+#lanterns-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* STAR LAYOUT */
+.star-main-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    flex-grow: 1;
+    height: calc(100% - 70px);
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #030307;
+    border: 1px solid #151525;
+}
+
+.star-canvas-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+#star-canvas {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* STAR CERTIFICATE */
+.star-certificate-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(3, 3, 7, 0.85);
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.star-certificate {
+    background: radial-gradient(circle at center, #fbf7ee 0%, #eedebf 100%);
+    border: 12px double #8a6c3d;
+    border-radius: 4px;
+    padding: 40px;
+    width: 100%;
+    max-width: 580px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 40px rgba(138, 108, 61, 0.2);
+    position: relative;
+    text-align: center;
+    color: #2b2214;
+    animation: slideUp 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    box-sizing: border-box;
+}
+
+.cert-seal {
+    font-size: 32px;
+    color: #90232b;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cert-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #4a3820;
+    margin-bottom: 5px;
+}
+
+.cert-subtitle {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #8a6c3d;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.cert-divider {
+    height: 2px;
+    background: linear-gradient(to right, transparent, #8a6c3d, transparent);
+    width: 80%;
+    margin: 0 auto 20px;
+}
+
+.cert-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.cert-name {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #90232b;
+    margin: 10px 0;
+    letter-spacing: 1.5px;
+}
+
+.cert-quote {
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    font-size: 12.5px;
+    color: #5a4b36;
+    background-color: rgba(138, 108, 61, 0.05);
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 3px solid #8a6c3d;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.cert-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    border-top: 1px solid rgba(138, 108, 61, 0.2);
+    padding-top: 15px;
+    color: #5a4b36;
+}
+
+.cert-signature {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: #90232b;
+    font-size: 14px;
+}
+
+/* RESPONSIVE DESIGN FOR ROMANTIC MODALS */
+@media (max-width: 480px) {
+    .star-certificate {
+        padding: 20px;
+        border-width: 6px;
+    }
+    
+    .cert-title {
+        font-size: 18px;
+    }
+    
+    .cert-name {
+        font-size: 22px;
+    }
+    
+    .cert-text {
+        font-size: 12px;
+    }
+    
+    .cert-quote {
+        font-size: 11px;
+        padding: 10px;
+    }
+}
+
+/* -------------------------------------------------------------
+   16. DOĞUM GÜNÜ GERİ SAYIM SAYACI STİLLERİ
+   ------------------------------------------------------------- */
+.birthday-countdown-container {
+    margin-top: 25px;
+    background: rgba(18, 18, 18, 0.45);
+    border: 1px solid rgba(255, 234, 0, 0.15);
+    border-radius: 8px;
+    padding: 12px 18px;
+    display: inline-block;
+    max-width: 450px;
+    box-sizing: border-box;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s ease;
+}
+
+.countdown-quote {
+    font-size: 13px;
+    color: #ffea00;
+    font-style: italic;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 10px rgba(255, 234, 0, 0.2);
+    text-align: left;
+}
+
+.countdown-timer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 45px;
+}
+
+.time-val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    line-height: 1.1;
+}
+
+.time-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 3px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.time-separator {
+    font-size: 20px;
+    color: rgba(255, 234, 0, 0.5);
+    font-weight: 700;
+    margin: 0 6px;
+    line-height: 1;
+    transform: translateY(-8px);
+}
+
+/* RESPONSIVE SAYAÇ */
+@media (max-width: 768px) {
+    .birthday-countdown-container {
+        margin-top: 20px;
+        padding: 10px 15px;
+        max-width: 100%;
+        width: 100%;
+        display: block;
+    }
+    .time-val {
+        font-size: 20px;
+    }
+    .countdown-quote {
+        font-size: 11.5px;
+    }
+}
+
